@@ -13,6 +13,13 @@ message ListProductResponse{ map< int32, Product> products = 1; }
 
 message ListRequest {}
 
+
+message UpdateProductRequest {
+    int32 id =1;
+    int32 quantity = 2;
+}
+
 service ProductService {
     rpc ListProduct(ListRequest) returns (ListProductResponse);
+    rpc UpdateProduct(UpdateProductRequest) returns (Product);
 }
