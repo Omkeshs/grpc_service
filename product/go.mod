@@ -1,4 +1,4 @@
-module github.com/Omkeshs/grpc_ecom/grpc/product
+module github.com/Omkeshs/grpc_service/product
 
 go 1.20
 
