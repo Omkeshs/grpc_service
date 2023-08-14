@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductServiceClient interface {
 	ListProduct(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListProductResponse, error)
-	UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*Product, error)
+	UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type productServiceClient struct {
@@ -43,8 +43,8 @@ func (c *productServiceClient) ListProduct(ctx context.Context, in *ListRequest,
 	return out, nil
 }
 
-func (c *productServiceClient) UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*Product, error) {
-	out := new(Product)
+func (c *productServiceClient) UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/product.ProductService/UpdateProduct", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -57,7 +57,7 @@ func (c *productServiceClient) UpdateProduct(ctx context.Context, in *UpdateProd
 // for forward compatibility
 type ProductServiceServer interface {
 	ListProduct(context.Context, *ListRequest) (*ListProductResponse, error)
-	UpdateProduct(context.Context, *UpdateProductRequest) (*Product, error)
+	UpdateProduct(context.Context, *UpdateProductRequest) (*Empty, error)
 	mustEmbedUnimplementedProductServiceServer()
 }
 
@@ -68,7 +68,7 @@ type UnimplementedProductServiceServer struct {
 func (UnimplementedProductServiceServer) ListProduct(context.Context, *ListRequest) (*ListProductResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListProduct not implemented")
 }
-func (UnimplementedProductServiceServer) UpdateProduct(context.Context, *UpdateProductRequest) (*Product, error) {
+func (UnimplementedProductServiceServer) UpdateProduct(context.Context, *UpdateProductRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateProduct not implemented")
 }
 func (UnimplementedProductServiceServer) mustEmbedUnimplementedProductServiceServer() {}
